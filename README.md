@@ -1,209 +1,240 @@
-# 🌸 NIYRA — Personal AI Companion
+<div align="center">
 
-> **A 100% local, privacy-first AI assistant inspired by J.A.R.V.I.S., built to think, remember, act, and grow with you.**
+```
+┌─────────────────────────────────────────────────────────┐
+│                                                           │
+│    ███╗   ██╗██╗██╗   ██╗██████╗  █████╗                │
+│    ████╗  ██║██║╚██╗ ██╔╝██╔══██╗██╔══██╗               │
+│    ██╔██╗ ██║██║ ╚████╔╝ ██████╔╝███████║               │
+│    ██║╚██╗██║██║  ╚██╔╝  ██╔══██╗██╔══██║               │
+│    ██║ ╚████║██║   ██║   ██║  ██║██║  ██║               │
+│    ╚═╝  ╚═══╝╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝               │
+│                                                           │
+│        M Y   C O G N I T I V E   P A R T N E R          │
+│                                                           │
+└─────────────────────────────────────────────────────────┘
+```
 
-NIYRA is my vision for a modern personal AI companion that runs entirely on local hardware.  
-It is designed to evolve from a simple voice assistant into a context-aware, action-oriented, always-available system that can understand me, remember me, help me manage my digital life, and keep everything private on my own PC.
+**A local-first AI operating system — not a chatbot, a partner that thinks, remembers, and acts, while you keep the authority.**
 
-The goal is not just to build a chatbot.  
-The goal is to build a real assistant with memory, personality, automation, and awareness — something that feels alive, useful, and deeply personal.
+![local-first](https://img.shields.io/badge/local--first-100%25-00ffc8?style=flat-square)
+![privacy](https://img.shields.io/badge/privacy-structural-8a2be2?style=flat-square)
+![orchestration](https://img.shields.io/badge/orchestration-Hermes%20Agent-3aa0ff?style=flat-square)
+![status](https://img.shields.io/badge/status-work--in--progress-ff9f1c?style=flat-square)
+![python](https://img.shields.io/badge/python-3.11%2B-yellow?style=flat-square)
 
----
-
-## ✨ What NIYRA is meant to become
-
-NIYRA is built around a simple idea:
-
-- **Think locally**
-- **Speak naturally**
-- **Remember everything important**
-- **Take actions on my behalf**
-- **Stay private**
-- **Grow in intelligence over time**
-
-It is inspired by the J.A.R.V.I.S. concept, but adapted into something realistic, buildable, and useful in the real world.
-
----
-
-## 🚀 Core Vision
-
-NIYRA is designed to evolve into a companion that can:
-
-- understand natural voice commands
-- respond in a human-like way
-- remember conversations and personal context
-- control apps, files, and browser tasks
-- communicate on my behalf
-- detect my mood and respond accordingly
-- run continuously in the background
-- keep all data on-device
-
-This project is my attempt to build a truly local AI assistant that feels personal, intelligent, and reliable.
+</div>
 
 ---
 
-## 🔒 Privacy-First Philosophy
+```
+$ niyra --boot
 
-NIYRA is built with one principle at the center:
+[BOOT] NIYRA v0.1 — initializing subsystems...
 
-**Everything stays on my machine.**
+  [ OK ]  BRAIN ........... Gemma 4 E4B  (local, Ollama)
+  [ OK ]  GUARD ........... risk classifier armed, fail-closed
+  [ OK ]  VAULT ........... credential isolation active (handle-based)
+  [ OK ]  MEMORY .......... ChromaDB + SQLite mounted
+  [ OK ]  REGISTRY ........ tool registry online, write-locked to BRAIN
+  [WARN]  SPEECH .......... implementation in progress — STT/TTS pending
+  [ .. ]  OPERATOR ........ standing by, awaiting tool grants
+  [ .. ]  RESEARCHER ...... cloud path scrubbed, standby
 
-That means:
-
-- no cloud dependency for core intelligence
-- no external memory storage
-- no unnecessary data leaks
-- no third-party control over personal information
-- no compromise on privacy
-
-All voice processing, memory storage, reasoning, and automation are planned to remain local wherever possible.
-
----
-
-## 🧠 What NIYRA will do
-
-### Voice & Interaction
-- Understand spoken language naturally
-- Convert speech to text locally
-- Speak back in a clear, human-like voice
-- Handle context across multiple turns
-- Support a conversational, companion-like tone
-
-### Intelligence & Reasoning
-- Solve tasks step by step
-- Give opinions, suggestions, and pushback when needed
-- Handle vague or incomplete commands
-- Support both fast responses and deeper thinking
-
-### Memory
-- Remember conversations permanently
-- Store personal history, goals, and preferences
-- Recall technical notes, projects, and useful facts
-- Keep memory persistent across restarts
-
-### Information & Research
-- Search the web when needed
-- Read documents and extract information
-- Scrape websites for data
-- Monitor RSS/news sources locally
-
-### PC Control
-- Open apps and files
-- Control mouse and keyboard
-- Take screenshots
-- Automate browser tasks
-- Run scripts or commands when asked
-
-### Communication
-- Send emails
-- Read and summarize inbox content
-- Handle WhatsApp automation
-- Manage reminders and calendar entries
-- Generate responses while I am busy
-
-### Awareness & Security
-- Detect wake words locally
-- Recognize my face before responding
-- Detect emotion from voice and face
-- Encrypt stored memory
-- Run as a background assistant continuously
+[READY] core loop online. awaiting input.
+```
 
 ---
 
-## 🛠️ Technology Stack
+## `// 00 — THE ONE RULE`
 
-NIYRA follows a local-first stack built for privacy, performance, and modular growth.
+> **The AI doesn't get unlimited control. I do.**
 
-| Layer | Technology | Purpose |
-|------|------------|---------|
-| **Brain (LLM)** | Ollama + LLaMA 3 | Deep local reasoning |
-| **Fast Brain** | Phi-3 Mini via Ollama | Quick responses and lightweight reasoning |
-| **Voice Input** | Whisper / faster-whisper | Local speech-to-text |
-| **Voice Output** | pyttsx3 / Piper TTS | Offline text-to-speech |
-| **Memory (Vector)** | ChromaDB | Semantic memory storage |
-| **Memory (Facts)** | SQLite | Structured long-term facts |
-| **Framework** | LangChain | Agent logic and tool routing |
-| **API Layer** | FastAPI + WebSockets | Module communication and live interaction |
-| **PC Control** | PyAutoGUI + subprocess | Mouse, keyboard, app control |
-| **Browser Automation** | Playwright | Web navigation and browser actions |
-| **Web Scraping** | BeautifulSoup | Extracting content from websites |
-| **News Monitoring** | feedparser | RSS-based updates |
-| **Email** | smtplib + imaplib | Local send/read email support |
-| **WhatsApp** | whatsapp-web.js | Messaging automation |
-| **Calendar** | ics library | Local reminders and scheduling |
-| **Scheduling** | APScheduler | Background jobs and proactive tasks |
-| **Wake Word** | Porcupine | Local wake word detection |
-| **Vision** | OpenCV + DeepFace | Face and emotion analysis |
-| **Face Recognition** | face_recognition | Identity-based access |
-| **Emotion from Voice** | SpeechBrain | Mood detection from audio |
-| **Security** | cryptography (Fernet) | Encrypted local storage |
-| **Dashboard** | Streamlit | Visual memory/log viewer |
+Every design decision in this system traces back to that line:
+
+- ⚡ Sensitive actions never execute silently — explained, risk-scored, approved, *then* run.
+- 🔐 Secrets never enter any agent's context — not even the one planning everything.
+- 🧠 Locality ≠ trust. The Brain holds the *most* authority (it's the only agent that can create new tools/subagents) — which makes it the highest-value target for bad reasoning, not the safest place to skip the gate. It is checked exactly like everything else.
 
 ---
 
-## 📅 Development Roadmap
+## `// 01 — ARCHITECTURE`
 
-NIYRA is planned in six phases, each building on the previous one.
+<div align="center">
 
-### Phase 1 — Voice + Brain + Memory
-**Goal:** make NIYRA hear, think, remember, and speak.
+```
+          ┌─────────────────────────┐
+          │         🧠 BRAIN         │
+          │   plans · delegates     │
+          │  sole tool-write power  │
+          └────────────┬────────────┘
+                        │
+        ┌───────────────┼───────────────┐
+        ▼               ▼               ▼
+  ┌───────────┐   ┌───────────┐   ┌───────────┐
+  │ 🔎RESEARCH │   │ 💻OPERATOR │   │ 🎙️ SPEECH  │
+  │  cloud-opt │   │ hands, no │   │  voice in │
+  │  scrubbed  │   │ direct    │   │  & out    │
+  │            │   │ writes    │   │           │
+  └─────┬──────┘   └─────┬─────┘   └─────┬─────┘
+        └────────────────┼───────────────┘
+                          ▼
+                  ┌──────────────┐
+                  │  🛡️  GUARD    │
+                  │ classify·gate │
+                  │  ·log·audit   │
+                  └───────┬──────┘
+                          ▼
+                  ┌──────────────┐
+                  │  💾 MEMORY    │
+                  │ local·shared │
+                  │  ·compacted  │
+                  └──────────────┘
+```
 
-What I am building here:
-- local speech input
-- local speech output
-- persistent memory
-- local LLM reasoning
-- the first working assistant loop
+</div>
 
-### Phase 2 — Personality + Speed
-**Goal:** make NIYRA feel alive, fast, and personal.
+| Module | Function | Notes |
+|---|---|---|
+| 🧠 **Brain** | Plans, decomposes, delegates | Only agent that may author new tools — and still runs through Guard |
+| 🔎 **Researcher** | Web search, investigation | Cloud-optional; crosses out only through a scrub layer |
+| 💻 **Operator** | PC, files, browser | Proposes changes — never applies directly |
+| 🎙️ **Speech** | STT / TTS | **← currently being built** |
+| 🛡️ **Guard** | Risk classification, approval gate, audit log | Fail-closed by default — unclassified = highest risk |
+| 💾 **Memory** | Persistent context | Shared substrate every module reads/writes |
 
-What I am building here:
-- custom personality
-- streaming responses
-- quick reply routing
-- dual-brain structure for fast and deep thinking
+### Execution trace
 
-### Phase 3 — PC Control + Actions
-**Goal:** give NIYRA hands.
-
-What I am building here:
-- app launching
-- file control
-- screenshots
-- browser automation
-- web scraping
-- tool-based action execution
-
-### Phase 4 — Communication on My Behalf
-**Goal:** make NIYRA act like a digital secretary.
-
-What I am building here:
-- email sending and reading
-- inbox summarization
-- WhatsApp automation
-- calendar support
-- reminders and automated replies
-
-### Phase 5 — Awareness + Emotion + Security
-**Goal:** make NIYRA more aware, more personal, and more secure.
-
-What I am building here:
-- wake-word activation
-- voice emotion detection
-- face recognition
-- expression-based emotion reading
-- local encryption for stored data
-
-### Phase 6 — Always-On + Full Polish
-**Goal:** make NIYRA a 24/7 assistant with a polished interface and background intelligence.
-
-What I am building here:
-- always-on background operation
-- crash recovery
-- auto-start on boot
-- dashboard for memory and logs
-- proactive suggestions and reminders
+```
+INPUT   → me
+PLAN    → Brain decomposes into tasks
+DISPATCH→ Agents run (parallel where independent)
+CHECK   → Guard classifies risk of each proposed action
+GATE    → sensitive/reversible → approval requested → I decide
+RUN     → approved action executes
+LOG     → outcome + reasoning written to audit trail
+STORE   → results committed to Memory
+```
 
 ---
 
+## `// 02 — SECURITY LAYER`
+
+Structural guarantees, not prompt-level promises:
+
+```
+┌────────────────────────────────────────────────────────┐
+│  MODEL REQUESTS →  "use_credential('email_password')"  │
+│  MODEL RECEIVES ←  "<<CREDENTIAL:email_password>>"      │
+│                     (opaque handle — never the secret)  │
+│                                                          │
+│  EXECUTOR RESOLVES HANDLE → real value, in-process only │
+│  → used directly in the call → never re-enters context  │
+└────────────────────────────────────────────────────────┘
+```
+
+- 🔒 **Blind credential injection** — a recognized pattern, not a custom invention; validated against prior art (PhantomKey, VaultKnox) rather than assumed novel.
+- 🔑 **Write authority, hard-locked** — `propose_tool()` and its approval counterpart raise `PermissionError` for any caller other than Brain / Guard. Not a comment. A crash.
+- 🌐 **Local/cloud boundary, enforced** — Brain, Guard, and Memory never cross out. Only Researcher (and Operator's coder-adjacent drafts) have a scrubbed, optional door.
+- 📡 **Outbound scanning** — every agent response is checked for credential-shaped content *before* it can be spoken, displayed, or forwarded — not just tool call arguments.
+- 🚫 **Fail-closed** — an unrecognized action defaults to the highest risk tier. Always.
+
+---
+
+## `// 03 — ORCHESTRATION: HERMES AGENT`
+
+NIYRA runs on **Hermes Agent** rather than a hand-rolled runtime — an open-source, self-improving agent harness with native subagent orchestration, compacting memory, and a plugin/hook lifecycle. Guard hooks directly into that lifecycle:
+
+| Hook | Guard's role there |
+|---|---|
+| `pre_tool_call` | Classify risk before anything dispatches |
+| `pre_approval_request` | Inject reasoning + exact action into the approval prompt |
+| `post_approval_response` | Log the decision — approved or denied |
+| `post_tool_call` | Log the read-only path that skipped approval |
+| `post_llm_call` | Scan outbound text for leaked credentials |
+
+> Even Hermes's own team is candid that airtight secrets management is still an open problem on their end. Good reminder: "production-grade" ≠ "solved everywhere" — even for the infrastructure you build on top of.
+
+---
+
+## `// 04 — STACK`
+
+<details>
+<summary><strong>Expand full technology stack</strong></summary>
+
+| Layer | Technology |
+|---|---|
+| Orchestration | Hermes Agent |
+| Brain (local) | Gemma 4 E4B via Ollama |
+| Fast path | Phi-3 Mini / Qwen2.5-3B |
+| Coder (hybrid) | Qwen3-Coder-480B-A35B (cloud draft) + local apply |
+| Researcher (cloud, optional) | NVIDIA API — Nemotron |
+| Voice Input | Whisper / faster-whisper |
+| Voice Output | Piper / Kokoro / pyttsx3 |
+| Memory (vector) | ChromaDB |
+| Memory (facts) | SQLite |
+| Credential Vault | Fernet (cryptography) |
+| PC Control | PyAutoGUI + subprocess |
+| Browser Automation | Playwright (MCP) |
+| Web Search | Tavily (MCP) |
+| Scheduling | APScheduler |
+| Wake Word | Porcupine |
+| Vision *(later)* | OpenCV + DeepFace + face_recognition |
+| Voice Emotion *(later)* | SpeechBrain |
+
+</details>
+
+**Hardware**
+
+| Device | Role |
+|---|---|
+| PC — i5 11th Gen, 8GB RAM, RTX 2050 (4GB VRAM) | Brain, Guard, Operator, primary memory |
+| Nothing Phone 3a Lite — Dimensity 7300 Pro, 8GB RAM | Offline fallback, wake-word/STT relay |
+
+---
+
+## `// 05 — STATUS`
+
+```
+BUILT & TESTED
+  [██████████] risk classifier + credential vault + audit log
+  [██████████] tool registry — write-locked, MCP vs custom
+  [██████████] Hermes guardrail plugin — unit-tested vs mock context
+
+IN PROGRESS
+  [████░░░░░░] speech agent — STT/TTS integration        ← building now
+  [██████░░░░] Hermes integration — against a live instance
+  [███░░░░░░░] guardrail regression testing
+
+QUEUED
+  [░░░░░░░░░░] memory compaction
+  [░░░░░░░░░░] tool registry expansion
+  [░░░░░░░░░░] cross-device control (PC ↔ phone)
+  [░░░░░░░░░░] Operator's browser/PC-control tool set
+  [░░░░░░░░░░] Researcher's scrubbed cloud path
+```
+
+---
+
+## `// 06 — ROADMAP`
+
+| Phase | Goal |
+|---|---|
+| **1 — Voice + Brain + Memory** *(current)* | Local STT/TTS, persistent memory, the core Brain ↔ Guard ↔ Memory loop |
+| **2 — Personality + Speed** | Custom tone, streaming responses, fast/deep dual routing |
+| **3 — PC Control + Actions** | Operator gets real hands — always through the gate |
+| **4 — Communication** | Email, calendar, messaging — approval-gated |
+| **5 — Awareness + Emotion + Security** | Wake word, emotion detection, encrypted memory at rest |
+| **6 — Always-On + Polish** | 24/7 operation, crash recovery, dashboard |
+
+---
+
+<div align="center">
+
+**[github.com/maxtro64/Niyra-My_Cognitive_Partner](https://github.com/maxtro64/Niyra-My_Coginitive_Patner)**
+
+*Still very much a work in progress — every claim above has a test or a cited source behind it, not just intention.*
+
+`LOCAL` · `PRIVATE` · `CAPABLE` · `CONTROLLED`
+
+</div>
