@@ -1,0 +1,24 @@
+# ==============================================================================
+# Naiyra Voice Agent Dependencies
+# ==============================================================================
+
+# STT - Faster Whisper (CTranslate2 INT8 optimized CPU inference)
+faster-whisper>=1.1.0
+
+# VAD - Silero Voice Activity Detection v5 (PyTorch CPU)
+torch>=2.0.0
+
+# LLM - Local Ollama Streaming Client
+ollama>=0.4.0
+
+# TTS - Microsoft Neural Edge-TTS (Zero-RAM streaming) & Kokoro-82M (Local offline fallback)
+edge-tts>=7.0.0
+kokoro>=0.9.2
+soundfile>=0.12.0
+
+# Audio I/O & Signal Processing
+sounddevice>=0.5.0
+numpy>=1.26.0
+
+# Terminal UI & Styling
+colorama>=0.4.6

@@ -37,7 +37,7 @@ $ niyra --boot
   [ OK ]  VAULT ........... credential isolation active (handle-based)
   [ OK ]  MEMORY .......... ChromaDB + SQLite mounted
   [ OK ]  REGISTRY ........ tool registry online, write-locked to BRAIN
-  [WARN]  SPEECH .......... implementation in progress — STT/TTS pending
+  [ OK ]  SPEECH .......... Faster-Whisper + Silero VAD + Edge-TTS online
   [ .. ]  OPERATOR ........ standing by, awaiting tool grants
   [ .. ]  RESEARCHER ...... cloud path scrubbed, standby
 
@@ -99,7 +99,7 @@ Every design decision in this system traces back to that line:
 | 🧠 **Brain** | Plans, decomposes, delegates | Only agent that may author new tools — and still runs through Guard |
 | 🔎 **Researcher** | Web search, investigation | Cloud-optional; crosses out only through a scrub layer |
 | 💻 **Operator** | PC, files, browser | Proposes changes — never applies directly |
-| 🎙️ **Speech** | STT / TTS | **← currently being built** |
+| 🎙️ **Speech** | STT / TTS | Operational — Faster-Whisper + Silero VAD + Edge-TTS/Kokoro |
 | 🛡️ **Guard** | Risk classification, approval gate, audit log | Fail-closed by default — unclassified = highest risk |
 | 💾 **Memory** | Persistent context | Shared substrate every module reads/writes |
 
@@ -166,11 +166,11 @@ NIYRA runs on **Hermes Agent** rather than a hand-rolled runtime — an open-sou
 |---|---|
 | Orchestration | Hermes Agent |
 | Brain (local) | Gemma 4 E4B via Ollama |
-| Fast path | Phi-3 Mini / Qwen2.5-3B |
+| Fast path | Qwen2.5 (0.5B/3B) / Phi-3 Mini |
 | Coder (hybrid) | Qwen3-Coder-480B-A35B (cloud draft) + local apply |
 | Researcher (cloud, optional) | NVIDIA API — Nemotron |
-| Voice Input | Whisper / faster-whisper |
-| Voice Output | Piper / Kokoro / pyttsx3 |
+| Voice Input | Faster-Whisper (INT8 CPU) |
+| Voice Output | Edge-TTS (AvaNeural 0-RAM) / Kokoro-82M / Piper |
 | Memory (vector) | ChromaDB |
 | Memory (facts) | SQLite |
 | Credential Vault | Fernet (cryptography) |
@@ -200,9 +200,9 @@ BUILT & TESTED
   [██████████] risk classifier + credential vault + audit log
   [██████████] tool registry — write-locked, MCP vs custom
   [██████████] Hermes guardrail plugin — unit-tested vs mock context
+  [██████████] speech agent — Faster-Whisper + Silero VAD + Edge-TTS/Kokoro (6/6 tests passing)
 
 IN PROGRESS
-  [████░░░░░░] speech agent — STT/TTS integration        ← building now
   [██████░░░░] Hermes integration — against a live instance
   [███░░░░░░░] guardrail regression testing
 
@@ -212,6 +212,18 @@ QUEUED
   [░░░░░░░░░░] cross-device control (PC ↔ phone)
   [░░░░░░░░░░] Operator's browser/PC-control tool set
   [░░░░░░░░░░] Researcher's scrubbed cloud path
+```
+
+---
+
+## `// QUICKSTART — RUNNING THE VOICE AGENT`
+
+```powershell
+# 1. Run diagnostic self-test suite (STT, VAD, LLM, TTS, Mic, Pipeline)
+.\venv\Scripts\python.exe test_agent.py
+
+# 2. Launch real-time interactive voice agent
+.\venv\Scripts\python.exe agent.py
 ```
 
 ---
