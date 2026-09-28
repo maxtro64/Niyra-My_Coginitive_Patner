@@ -1,0 +1,27 @@
+- generic [ref=f2e2]:
+  - banner [ref=f2e4]:
+    - generic [ref=f2e6]:
+      - generic [ref=f2e7]:
+        - button "Guide" [ref=f2e9] [cursor=pointer]
+        - generic [ref=f2e11]:
+          - link "YouTube Home" [ref=f2e12] [cursor=pointer]:
+            - /url: /
+          - generic [ref=f2e16]: IN
+        - button "Skip navigation" [ref=f2e20] [cursor=pointer]
+      - generic [ref=f2e24]:
+        - search [ref=f2e25]:
+          - generic [ref=f2e27]:
+            - combobox "Search" [expanded] [ref=f2e30]
+            - button "Search" [ref=f2e31] [cursor=pointer]
+        - generic [ref=f2e34]:
+          - button "Search with your voice" [ref=f2e36] [cursor=pointer]
+          - tooltip "tooltip"
+      - generic [ref=f2e41]:
+        - button "Settings" [ref=f2e46] [cursor=pointer]
+        - link "Sign in" [ref=f2e50] [cursor=pointer]:
+          - /url: https://accounts.google.com/ServiceLogin?service=youtube&uilel=3&passive=true&continue=https%3A%2F%2Fwww.youtube.com%2Fsignin%3Faction_handle_signin%3Dtrue%26app%3Ddesktop%26hl%3Den%26next%3Dhttps%253A%252F%252Fwww.youtube.com%252F%253FthemeRefresh%253D1&hl=en&ec=65620
+  - navigation [ref=f2e54]
+  - main [ref=f2e56]:
+    - generic [ref=f2e66]:
+      - heading "Try searching to get started" [level=2] [ref=f2e67]
+      - generic [ref=f2e68]: Start watching videos to help us build a feed of videos you'll love.

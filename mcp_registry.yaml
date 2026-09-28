@@ -1,0 +1,9 @@
+servers:
+  playwright:
+    command: "npx.cmd"
+    args:
+      - "-y"
+      - "@playwright/mcp"
+      - "--no-sandbox"
+      - "--viewport-size=1280,800"
+    description: "Browser automation tools using Playwright (persistent headed session)"

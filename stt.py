@@ -46,10 +46,7 @@ class SpeechToText:
             audio,
             beam_size=STT_BEAM_SIZE,
             language=STT_LANGUAGE,
-            vad_filter=True,              # Use Silero VAD within Whisper too
-            vad_parameters=dict(
-                min_silence_duration_ms=300,
-            ),
+            vad_filter=False,             # Outer Silero VAD already accurately segmented speech
             without_timestamps=True,       # Faster without timestamps
             condition_on_previous_text=False,  # Prevents hallucination loops
         )

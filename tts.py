@@ -5,6 +5,7 @@ Supports:
 2. Kokoro-82M (Local): 82M PyTorch model on CPU when offline.
 """
 
+import os
 import numpy as np
 import sounddevice as sd
 import soundfile as sf
@@ -27,8 +28,15 @@ class TextToSpeech:
         if self.engine == "kokoro":
             print(f"  [TTS] Loading Kokoro TTS (voice={TTS_VOICE})...")
             try:
+                os.environ["HF_HUB_OFFLINE"] = "1"
                 from kokoro import KPipeline
-                self.pipeline = KPipeline(lang_code="a")
+                import contextlib
+                import io
+                
+                # Suppress Kokoro/PyTorch state_dict warnings during load
+                with contextlib.redirect_stderr(io.StringIO()), contextlib.redirect_stdout(io.StringIO()):
+                    self.pipeline = KPipeline(lang_code="a")
+                    
                 print(f"  [TTS] Kokoro loaded successfully.")
             except Exception as e:
                 print(f"  [TTS] Kokoro failed ({e}), using Edge-TTS.")
@@ -88,10 +96,10 @@ class TextToSpeech:
         try:
             import edge_tts
 
-            voice = self._voice if "Neural" in self._voice else "en-US-AvaNeural"
+            voice = self._voice if "Neural" in self._voice else "en-US-ChristopherNeural"
 
             async def _synthesize():
-                communicate = edge_tts.Communicate(text, voice)
+                communicate = edge_tts.Communicate(text, voice, pitch="-10Hz")
                 chunks = []
                 async for chunk in communicate.stream():
                     if chunk["type"] == "audio":

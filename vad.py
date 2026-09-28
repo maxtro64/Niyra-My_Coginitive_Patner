@@ -66,13 +66,17 @@ class VoiceActivityDetector:
         if audio_chunk.dtype != np.float32:
             audio_chunk = audio_chunk.astype(np.float32)
 
-        # Normalize if needed (ensure [-1, 1] range)
-        max_val = np.abs(audio_chunk).max()
-        if max_val > 1.0:
-            audio_chunk = audio_chunk / max_val
+        # Prepare scaled copy for VAD evaluation (handles quiet laptop microphones)
+        vad_chunk = audio_chunk.copy()
+        max_val = float(np.abs(vad_chunk).max())
+        if max_val > 0.00005:
+            scale = min(100.0, 0.7 / max_val)
+            vad_chunk = vad_chunk * scale
+        elif max_val > 1.0:
+            vad_chunk = vad_chunk / max_val
 
         # Run Silero VAD
-        tensor = torch.from_numpy(audio_chunk)
+        tensor = torch.from_numpy(vad_chunk)
         with torch.no_grad():
             confidence = self.model(tensor, AUDIO_SAMPLE_RATE).item()
 
@@ -113,7 +117,7 @@ class VoiceActivityDetector:
     def get_speech_audio(self) -> np.ndarray:
         """
         Retrieve the buffered speech audio after a 'speech_end' event.
-        Automatically resets the buffer.
+        Automatically resets the buffer and normalizes volume for Whisper.
 
         Returns:
             numpy array of float32 audio containing the full utterance.
@@ -123,6 +127,12 @@ class VoiceActivityDetector:
 
         audio = np.concatenate(list(self._audio_buffer))
         self._audio_buffer.clear()
+
+        # Normalize volume to 0.95 peak so Whisper receives crystal-clear audio
+        max_val = float(np.abs(audio).max())
+        if max_val > 0.00005:
+            audio = audio / max_val * 0.95
+
         return audio
 
     @property
