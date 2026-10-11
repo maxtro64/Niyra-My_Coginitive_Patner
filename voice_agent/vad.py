@@ -3,15 +3,19 @@ Silero VAD — Voice Activity Detection
 Detects when the user starts and stops speaking in real-time.
 """
 
-import torch
-import numpy as np
 from collections import deque
-from config import (
-    VAD_THRESHOLD,
-    VAD_MIN_SPEECH_MS,
-    VAD_MIN_SILENCE_MS,
-    VAD_SPEECH_PAD_MS,
+
+import numpy as np
+import torch
+
+from core.config import (
     AUDIO_SAMPLE_RATE,
+    VAD_MAX_GAIN,
+    VAD_MIN_SILENCE_MS,
+    VAD_MIN_SPEECH_MS,
+    VAD_NOISE_GATE,
+    VAD_SPEECH_PAD_MS,
+    VAD_THRESHOLD,
 )
 
 
@@ -19,11 +23,12 @@ class VoiceActivityDetector:
     """Real-time voice activity detector using Silero VAD v5."""
 
     def __init__(self):
+        torch.set_num_threads(1)
         self.model, self.utils = torch.hub.load(
             repo_or_dir="snakers4/silero-vad",
             model="silero_vad",
-            trust_repo=True,
-        )
+            trust_repo=True, # type: ignore
+        ) # type: ignore
         self.model.eval()
 
         # State tracking
@@ -49,6 +54,19 @@ class VoiceActivityDetector:
         self._silence_frames = 0
         self._audio_buffer.clear()
 
+    @staticmethod
+    def _prepare_for_model(audio_chunk: np.ndarray) -> np.ndarray:
+        """
+        Boost quiet laptop microphones — but ONLY real signal.
+        Anything under the noise gate is left untouched, otherwise room noise is amplified
+        up to x100 and looks like speech. Gain is capped and the result clipped to [-1, 1].
+        """
+        peak = float(np.abs(audio_chunk).max()) if audio_chunk.size else 0.0
+        if peak >= VAD_NOISE_GATE:
+            scale = min(VAD_MAX_GAIN, 0.7 / peak)
+            return np.clip(audio_chunk * scale, -1.0, 1.0).astype(np.float32)
+        return audio_chunk
+
     def process_chunk(self, audio_chunk: np.ndarray) -> dict:
         """
         Process a 512-sample audio chunk (32ms at 16kHz).
@@ -62,21 +80,13 @@ class VoiceActivityDetector:
                 - 'confidence': float — VAD confidence [0, 1]
                 - 'event': str or None — 'speech_start', 'speech_end', or None
         """
-        # Ensure correct format
         if audio_chunk.dtype != np.float32:
             audio_chunk = audio_chunk.astype(np.float32)
 
-        # Prepare scaled copy for VAD evaluation (handles quiet laptop microphones)
-        vad_chunk = audio_chunk.copy()
-        max_val = float(np.abs(vad_chunk).max())
-        if max_val > 0.00005:
-            scale = min(100.0, 0.7 / max_val)
-            vad_chunk = vad_chunk * scale
-        elif max_val > 1.0:
-            vad_chunk = vad_chunk / max_val
+        vad_chunk = self._prepare_for_model(audio_chunk)
 
         # Run Silero VAD
-        tensor = torch.from_numpy(vad_chunk)
+        tensor = torch.from_numpy(np.ascontiguousarray(vad_chunk))
         with torch.no_grad():
             confidence = self.model(tensor, AUDIO_SAMPLE_RATE).item()
 

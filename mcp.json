@@ -4,7 +4,11 @@
       "command": "npx",
       "args": [
         "-y",
-        "@playwright/mcp@latest"
+        "@playwright/mcp@latest",
+        "--no-sandbox",
+        "--isolated",
+        "--viewport-size", "1280x720",
+        "--caps=devtools"
       ]
     }
   }

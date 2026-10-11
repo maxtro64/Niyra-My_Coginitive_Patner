@@ -1,5 +1,5 @@
 # ==============================================================================
-# Naiyra Voice Agent Dependencies
+# Naiyra Voice Agent Dependencies   (Python 3.11+ required — uses asyncio.timeout)
 # ==============================================================================
 
 # STT - Faster Whisper (CTranslate2 INT8 optimized CPU inference)
@@ -8,10 +8,21 @@ faster-whisper>=1.1.0
 # VAD - Silero Voice Activity Detection v5 (PyTorch CPU)
 torch>=2.0.0
 
-# LLM - Local Ollama Streaming Client
-ollama>=0.4.0
+# LLM - Local Ollama Streaming Client (tool_name field on tool messages needs >= 0.5.1)
+ollama>=0.5.1
 
-# TTS - Microsoft Neural Edge-TTS (Zero-RAM streaming) & Kokoro-82M (Local offline fallback)
+# Agent graph / orchestration
+langgraph>=0.2
+
+# MCP client (Playwright browser tools) + registry parsing + .env loading
+mcp>=1.0
+pyyaml>=6.0
+python-dotenv>=1.0
+
+# Web search tool
+tavily-python>=0.5
+
+# TTS - Kokoro-82M (local) & Microsoft Neural Edge-TTS (fallback)
 edge-tts>=7.0.0
 kokoro>=0.9.2
 soundfile>=0.12.0
@@ -22,3 +33,21 @@ numpy>=1.26.0
 
 # Terminal UI & Styling
 colorama>=0.4.6
+rich>=13.0
+textual>=0.80
+
+# Windows microphone auto-unmute (bruce.py)
+pycaw; sys_platform == "win32"
+comtypes; sys_platform == "win32"
+
+# Missing Dependencies
+python-telegram-bot
+apscheduler
+pydantic
+langchain
+langchain-core
+langchain-openai
+langchain-ollama
+langchain-anthropic
+langchain-mcp-adapters
+pydub

@@ -26,8 +26,32 @@ dist/
 *.model
 *.bin
 
+# Binaries / installers must never be committed
+*.exe
+*.msi
+
+# Playwright MCP runtime artifacts and test captures
+.playwright-mcp/
+snapshot.png
+youtubehome.png
+
 # IDE and OS files
 .vscode/
 .idea/
 .DS_Store
 Thumbs.db
+
+# Credentials and keys
+*.pem
+*.key
+*.cert
+*.cer
+credentials.json
+client_secret*.json
+token.json
+keys.json
+secrets.json
+.npmrc
+.aws/
+*api_key*
+*secret*
